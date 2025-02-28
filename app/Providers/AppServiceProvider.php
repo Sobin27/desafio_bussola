@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Service\CheckoutService;
-use App\Service\ICheckoutService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ICheckoutService::class, CheckoutService::class);
+        //
     }
 
     /**

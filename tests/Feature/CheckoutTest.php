@@ -6,27 +6,31 @@ class CheckoutTest extends TestCase
     public function test_checkout_payment_via_pix()
     {
         $request = [
-            'paymentmethod' => 'pix',
+            'paymentMethod' => 'pix',
             'items' => [
                 [
                     'name' => 'Product 1',
                     'price' => 50,
                     'quantity' => 10,
                 ]
-            ],
-            'cardInformation' => []
+            ]
         ];
         $response = $this->postJson('/api/checkout', $request);
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Payment processed successfully',
-                'totalToPay' => 450,
+                'presenter' => [
+                    'status' => [
+                        'code' => 200,
+                        'message' => 'Payment Processed Successfully',
+                    ],
+                    'processed' => 'Total to pay '. 450,
+                ]
             ]);
     }
     public function test_checkout_single_payment_via_credit_card()
     {
         $request = [
-            'paymentmethod' => 'credit_card',
+            'paymentMethod' => 'credit_card',
             'items' => [
                 [
                     'name' => 'Product 1',
@@ -47,14 +51,19 @@ class CheckoutTest extends TestCase
         $response = $this->postJson('/api/checkout', $request);
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Payment processed successfully',
-                'totalToPay' => 450,
+                'presenter' => [
+                    'status' => [
+                        'code' => 200,
+                        'message' => 'Payment Processed Successfully',
+                    ],
+                    'processed' => 'Total to pay '. 450,
+                ]
             ]);
     }
     public function test_checkout_installments_payment_via_credit_card()
     {
         $request = [
-            'paymentmethod' => 'credit_card',
+            'paymentMethod' => 'credit_card',
             'items' => [
                 [
                     'name' => 'Product 1',
@@ -75,11 +84,18 @@ class CheckoutTest extends TestCase
         $response = $this->postJson('/api/checkout', $request);
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Payment processed successfully',
-                'totalToPay' => 563.41,
-                'installments' => [
-                    'amount' => 46.95,
-                    'total' => 12,
+                'presenter' => [
+                    'status' => [
+                        'code' => 200,
+                        'message' => 'Payment Processed Successfully',
+                    ],
+                    'processed' => [
+                        'totalToPay' => 563.41,
+                        'installments' => [
+                            'amount' => 46.95,
+                            'total' => 12,
+                        ]
+                    ]
                 ]
             ]);
     }

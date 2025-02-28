@@ -1,5 +1,5 @@
 <?php
-namespace App\Support\Enum;
+namespace App\desafio_bussola\Modules\Generics\Enums;
 
 enum PaymentMethods
 {

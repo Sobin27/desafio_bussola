@@ -27,7 +27,7 @@ class ProcessPaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'paymentmethod' => 'required|string',
+            'paymentMethod' => 'required|string',
             'items' => 'required|array',
             'items.*.name' => 'required|string',
             'items.*.price' => 'required|numeric',
